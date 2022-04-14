@@ -52,9 +52,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://icequezon.github.io/trade-projection/img/img0.PNG)
-[![Product Name Screen Shot][product-screenshot]](https://icequezon.github.io/trade-projection/img/img1.PNG)
-[![Product Name Screen Shot][product-screenshot]](https://icequezon.github.io/trade-projection/img/img2.PNG)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/icequezon/trade-projection/blob/main/img/img0.PNG)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/icequezon/trade-projection/blob/main/img/img1.PNG)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/icequezon/trade-projection/blob/main/img/img2.PNG)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
