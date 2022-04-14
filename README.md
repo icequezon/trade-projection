@@ -52,9 +52,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://raw.githubusercontent.com/icequezon/trade-projection/main/img/img0.PNG)
-[![Product Name Screen Shot][product-screenshot]](https://raw.githubusercontent.com/icequezon/trade-projection/main/img/img1.PNG)
-[![Product Name Screen Shot][product-screenshot]](https://raw.githubusercontent.com/icequezon/trade-projection/main/img/img2.PNG)
+[![Product Name Screen Shot][product-screenshot0]](https://raw.githubusercontent.com/icequezon/trade-projection/main/img/img0.PNG)
+[![Product Name Screen Shot][product-screenshot1]](https://raw.githubusercontent.com/icequezon/trade-projection/main/img/img1.PNG)
+[![Product Name Screen Shot][product-screenshot2]](https://raw.githubusercontent.com/icequezon/trade-projection/main/img/img2.PNG)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -106,4 +106,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [forks-url]: https://github.com/icequezon/trade-projection/network/members
 [issues-shield]: https://img.shields.io/github/issues/icequezon/trade-projection.svg?style=for-the-badge
 [issues-url]: https://github.com/icequezon/trade-projection/issues
-[product-screenshot]: images/screenshot.png
+[product-screenshot0]: img/img0.png
+[product-screenshot1]: img/img1.png
+[product-screenshot2]: img/img2.png
