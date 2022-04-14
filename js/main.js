@@ -5,7 +5,7 @@ const context = canvas.getContext('2d');
 const commissionFeeMult = 30;
 const initialBalance = 263.64;
 const pipSize = 60;
-const startDate = new Date(Date.now());
+const initialDate = new Date(Date.now());
 const numOfGeneratedData = 100;
 
 window.addEventListener('resize', resizeCanvas, false);
@@ -48,9 +48,9 @@ function generateChartData(initialBalance, pipSize, days) {
 }
 
 function generateChartLabels(startDate, days) {
-    var labels = [startDate,];
+    let labels = [new Date(startDate),];
     var i = 0;
-    var nextDate = startDate;
+    var nextDate = new Date(startDate);
     while(labels.length < days) {
         if (i === 1000)
             break;
@@ -66,7 +66,7 @@ function generateChartLabels(startDate, days) {
 
 function populateTable() {
     const data = generateData(initialBalance, pipSize, numOfGeneratedData);
-    const dates = generateChartLabels(startDate, numOfGeneratedData);
+    const dates = generateChartLabels(initialDate, numOfGeneratedData);
     const table = document.getElementById('projectionTable');
     for (var i = 0; i < numOfGeneratedData; ++i) {
         let row = table.insertRow();
@@ -100,7 +100,7 @@ resizeCanvas();
 const myChart = new Chart(context, {
     type: 'line',
     data: {
-        labels: generateChartLabels(startDate, numOfGeneratedData),
+        labels: generateChartLabels(initialDate, numOfGeneratedData),
         datasets: [{
             label: 'Projection',
             data: generateChartData(initialBalance, pipSize, numOfGeneratedData),
