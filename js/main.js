@@ -24,14 +24,15 @@ function generateData(initialBalance, pipSize, days) {
     for (i = 0; i < days; ++i)
     {
         const lotSize = truncateTwoDecimal(initialBalance/830);
-        const expectedGain = truncateTwoDecimal(lotSize * pipSize);
+        const rawGain = truncateTwoDecimal(lotSize * pipSize);
         const commission = truncateTwoDecimal(lotSize * commissionFeeMult);
-        const netGain = truncateTwoDecimal(expectedGain - commission);
+        const netGain = truncateTwoDecimal(rawGain - commission);
         const expectedBalance = truncateTwoDecimal(initialBalance + netGain);
         
         data.push({
+            'initialBalance': initialBalance,
             'lotSize': lotSize,
-            'expectedGain': expectedGain,
+            'rawGain': rawGain,
             'commission': commission,
             'netGain': netGain,
             'expectedBalance': expectedBalance
@@ -41,7 +42,6 @@ function generateData(initialBalance, pipSize, days) {
     }
     return data;
 }
-
 
 function generateChartData(initialBalance, pipSize, days) {
     return generateData(initialBalance, pipSize, days).map(x => x['expectedBalance']);
@@ -61,9 +61,41 @@ function generateChartLabels(startDate, days) {
         }
         labels.push(new Date(nextDate));
     }
-    return labels.map(x => x.toLocaleDateString());
+    return labels.map(x => x.toLocaleDateString('en-us', {day: 'numeric', month: 'short', year: 'numeric'}));
 }
 
+function populateTable() {
+    const data = generateData(initialBalance, pipSize, numOfGeneratedData);
+    const dates = generateChartLabels(startDate, numOfGeneratedData);
+    const table = document.getElementById('projectionTable');
+    for (var i = 0; i < numOfGeneratedData; ++i) {
+        let row = table.insertRow();
+
+        let date = row.insertCell(0);
+        date.setAttribute('scope', 'row');
+        date.innerHTML = dates[i];
+
+        let initialBalance = row.insertCell(1);
+        initialBalance.innerHTML = data[i]['initialBalance'];
+
+        let lotSize = row.insertCell(2);
+        lotSize.innerHTML = data[i]['lotSize'];
+
+        let rawGain = row.insertCell(3);
+        rawGain.innerHTML = data[i]['rawGain'];
+
+        let commission = row.insertCell(4);
+        commission.innerHTML = data[i]['commission'];
+
+        let netGain = row.insertCell(5);
+        netGain.innerHTML = data[i]['netGain'];
+
+        let expectedBalance = row.insertCell(6);
+        expectedBalance.innerHTML = data[i]['expectedBalance'];
+    }
+}
+
+populateTable();
 resizeCanvas();
 const myChart = new Chart(context, {
     type: 'line',
