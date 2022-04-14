@@ -7,6 +7,10 @@ const endDateInput = document.getElementById('endDate');
 const commissionFeeMult = 30;
 const initialDate = new Date(Date.now());
 
+window.gInitBalance = 0.0;
+window.gPipSize = 60;
+window.gEndDate = new Date();
+
 window.addEventListener('resize', resizeCanvas, false);
 generateProjectionBtn.addEventListener('click', generateProjection);
 endDateInput.addEventListener('input', checkWeekendInput);
@@ -198,6 +202,7 @@ function generateProjection() {
             }
         }
     });
+    resizeCanvas();
 }
 
 resizeCanvas();
