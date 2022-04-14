@@ -88,7 +88,7 @@ function populateTable() {
         commission.innerHTML = data[i]['commission'];
 
         let netProfit = row.insertCell(5);
-        netGain.innerHTML = data[i]['netGain'];
+        netProfit.innerHTML = data[i]['netProfit'];
 
         let expectedBalance = row.insertCell(6);
         expectedBalance.innerHTML = data[i]['expectedBalance'];
