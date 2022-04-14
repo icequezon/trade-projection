@@ -49,10 +49,30 @@
   </div>
 </nav>
 
-<div class="container-fluid" style="margin-top: 55px; margin-bottom: 55px">
-  <canvas id="myChart"></canvas>
+<div id="projectionInputs" class="container-fluid" style="margin-top: 20%; margin-bottom: 55px;">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label for="initBalance">Starting Balance</label>
+            <div class="input-group mb-3 input-group-lg">
+                <input type="number" class="form-control" id="initBalance" step="0.01" placeholder="Enter Starting Balance">
+            </div>
+            <label for="exampleInputPassword1">Pip Size</label>
+            <div class="input-group mb-3 input-group-lg">
+                <input type="number" class="form-control" id="pipSize" value="60">
+            </div>
+            <div class="input-group mb-3 justify-content-center">
+                <button class="btn btn-primary btn-lg" id="generateProjectionBtn">Generate Projection</button>
+            </div>
+        </div>
+    </div>
+
 </div>
-<div class="container">
+
+<div id="projectionChartDiv" class="container-fluid" style="margin-top: 55px; margin-bottom: 55px; display: none">
+    <canvas id="myChart"></canvas>
+</div>
+
+<div id="projectionTableDiv" class="container" style="display: none">
     <table class="table" id="projectionTable">
       <thead>
         <tr>
