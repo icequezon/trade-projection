@@ -2,13 +2,17 @@
 const canvas = document.getElementById('myChart');
 const context = canvas.getContext('2d');
 const generateProjectionBtn = document.getElementById('generateProjectionBtn');
+const endDateInput = document.getElementById('endDate');
 
 const commissionFeeMult = 30;
 const initialDate = new Date(Date.now());
-const numOfGeneratedData = 100;
 
 window.addEventListener('resize', resizeCanvas, false);
 generateProjectionBtn.addEventListener('click', generateProjection);
+endDateInput.addEventListener('input', checkWeekendInput);
+const nextMonth = new Date();
+nextMonth.setMonth(nextMonth.getMonth()+1);
+endDateInput.valueAsDate = new Date(nextMonth);
 
 
 function resizeCanvas() {
@@ -20,11 +24,42 @@ function hideInputs() {
     let pInput = document.getElementById('projectionInputs');
     pInput.style.display = 'none';
 }
+
 function showProjection() {
     let pChart = document.getElementById('projectionChartDiv');
     let pTable = document.getElementById('projectionTableDiv');
     pChart.style.display = '';
     pTable.style.display = '';
+}
+
+function checkWeekendInput(e) {
+    const day = new Date(this.value).getDay();
+    if ([0,6].includes(day)) {
+        e.preventDefault();
+        this.value = '';
+        alert('Weekends not allowed');
+    }
+}
+
+function computeDays(startDate, endDate) {
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+    let currDate = new Date(startDate);
+    var days = 0;
+    while(true) {
+        if (currDate.getYear() === startDate.getYear()+100) {
+            break;
+        }
+        currDate.setDate(currDate.getDate()+1);
+        if (currDate.getDay() === 0 || currDate.getDay() === 6) {
+            continue;
+        }
+        if (currDate > endDate) {
+            break;
+        }
+        ++days;
+    }
+    return days;
 }
 
 function truncateTwoDecimal(num) {
@@ -40,7 +75,7 @@ function generateData(initialBalance, pipSize, days) {
         const commission = truncateTwoDecimal(lotSize * commissionFeeMult);
         const netProfit = truncateTwoDecimal(grossProfit - commission);
         const expectedBalance = truncateTwoDecimal(initialBalance + netProfit);
-        
+
         data.push({
             'initialBalance': initialBalance,
             'lotSize': lotSize,
@@ -76,11 +111,11 @@ function generateChartLabels(startDate, days) {
     return labels.map(x => x.toLocaleDateString('en-us', {day: 'numeric', month: 'short', year: 'numeric'}));
 }
 
-function populateTable(initialBalance, pipSize) {
-    const data = generateData(initialBalance, pipSize, numOfGeneratedData);
-    const dates = generateChartLabels(initialDate, numOfGeneratedData);
+function populateTable(initialBalance, pipSize, days) {
+    const data = generateData(initialBalance, pipSize, days);
+    const dates = generateChartLabels(initialDate, days);
     const table = document.getElementById('projectionTable');
-    for (var i = 0; i < numOfGeneratedData; ++i) {
+    for (var i = 0; i < days; ++i) {
         let row = table.insertRow();
 
         let date = row.insertCell(0);
@@ -109,17 +144,25 @@ function populateTable(initialBalance, pipSize) {
 
 function generateProjection() {
     const initialBalance = document.getElementById('initBalance').value;
+
+    if(initialBalance <= 0 || initialBalance === '') {
+        alert('Input a starting balance');
+        return;
+    }
+
     const pipSize = document.getElementById('pipSize').value;
+    const days = computeDays(initialDate, document.getElementById('endDate').value);
+
     hideInputs();
     showProjection();
-    populateTable(initialBalance, pipSize);
+    populateTable(initialBalance, pipSize, days);
     const myChart = new Chart(context, {
         type: 'line',
         data: {
-            labels: generateChartLabels(initialDate, numOfGeneratedData),
+            labels: generateChartLabels(initialDate, days),
             datasets: [{
                 label: 'Projection',
-                data: generateChartData(initialBalance, pipSize, numOfGeneratedData),
+                data: generateChartData(initialBalance, pipSize, days),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -148,6 +191,7 @@ function generateProjection() {
         }
     });
 }
+
 resizeCanvas();
 
 }
