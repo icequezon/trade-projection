@@ -113,7 +113,6 @@ function generateProjection() {
     hideInputs();
     showProjection();
     populateTable(initialBalance, pipSize);
-    resizeCanvas();
     const myChart = new Chart(context, {
         type: 'line',
         data: {
@@ -149,6 +148,7 @@ function generateProjection() {
         }
     });
 }
+resizeCanvas();
 
 }
 )();
