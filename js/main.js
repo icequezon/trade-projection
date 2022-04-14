@@ -11,7 +11,6 @@ window.gInitBalance = 0.0;
 window.gPipSize = 60;
 window.gEndDate = new Date();
 
-window.addEventListener('resize', resizeCanvas, false);
 generateProjectionBtn.addEventListener('click', generateProjection);
 endDateInput.addEventListener('input', checkWeekendInput);
 
@@ -25,11 +24,6 @@ function setEndDate() {
         nextMonth.setDate(nextMonth.getDate()+1);
     }
     endDateInput.valueAsDate = new Date(nextMonth);
-}
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight-55;
 }
 
 function hideInputs() {
@@ -195,6 +189,8 @@ function generateProjection() {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true
@@ -202,10 +198,8 @@ function generateProjection() {
             }
         }
     });
-    resizeCanvas();
 }
 
-resizeCanvas();
 setEndDate();
 
 }
