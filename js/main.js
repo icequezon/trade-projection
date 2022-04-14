@@ -4,8 +4,6 @@ const context = canvas.getContext('2d');
 const generateProjectionBtn = document.getElementById('generateProjectionBtn');
 
 const commissionFeeMult = 30;
-//const initialBalance = 263.64;
-//const pipSize = 60;
 const initialDate = new Date(Date.now());
 const numOfGeneratedData = 100;
 
