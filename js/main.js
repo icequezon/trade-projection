@@ -24,17 +24,17 @@ function generateData(initialBalance, pipSize, days) {
     for (i = 0; i < days; ++i)
     {
         const lotSize = truncateTwoDecimal(initialBalance/830);
-        const rawGain = truncateTwoDecimal(lotSize * pipSize);
+        const grossProfit = truncateTwoDecimal(lotSize * pipSize);
         const commission = truncateTwoDecimal(lotSize * commissionFeeMult);
-        const netGain = truncateTwoDecimal(rawGain - commission);
-        const expectedBalance = truncateTwoDecimal(initialBalance + netGain);
+        const netProfit = truncateTwoDecimal(grossProfit - commission);
+        const expectedBalance = truncateTwoDecimal(initialBalance + netProfit);
         
         data.push({
             'initialBalance': initialBalance,
             'lotSize': lotSize,
-            'rawGain': rawGain,
+            'grossProfit': grossProfit,
             'commission': commission,
-            'netGain': netGain,
+            'netProfit': netProfit,
             'expectedBalance': expectedBalance
         });
 
@@ -81,13 +81,13 @@ function populateTable() {
         let lotSize = row.insertCell(2);
         lotSize.innerHTML = data[i]['lotSize'];
 
-        let rawGain = row.insertCell(3);
-        rawGain.innerHTML = data[i]['rawGain'];
+        let grossProfit = row.insertCell(3);
+        grossProfit.innerHTML = data[i]['grossProfit'];
 
         let commission = row.insertCell(4);
         commission.innerHTML = data[i]['commission'];
 
-        let netGain = row.insertCell(5);
+        let netProfit = row.insertCell(5);
         netGain.innerHTML = data[i]['netGain'];
 
         let expectedBalance = row.insertCell(6);
