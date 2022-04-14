@@ -10,10 +10,18 @@ const initialDate = new Date(Date.now());
 window.addEventListener('resize', resizeCanvas, false);
 generateProjectionBtn.addEventListener('click', generateProjection);
 endDateInput.addEventListener('input', checkWeekendInput);
-const nextMonth = new Date();
-nextMonth.setMonth(nextMonth.getMonth()+1);
-endDateInput.valueAsDate = new Date(nextMonth);
 
+function setEndDate() {
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth()+1);
+    if (nextMonth.getDay() === 6) {
+        nextMonth.setDate(nextMonth.getDate()-1);
+    }
+    if (nextMonth.getDay() === 0) {
+        nextMonth.setDate(nextMonth.getDate()+1);
+    }
+    endDateInput.valueAsDate = new Date(nextMonth);
+}
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -143,9 +151,9 @@ function populateTable(initialBalance, pipSize, days) {
 }
 
 function generateProjection() {
-    const initialBalance = document.getElementById('initBalance').value;
+    const initialBalance = parseFloat(document.getElementById('initBalance').value);
 
-    if(initialBalance <= 0 || initialBalance === '') {
+    if(initialBalance <= 0 || isNaN(initialBalance)) {
         alert('Input a starting balance');
         return;
     }
@@ -193,6 +201,7 @@ function generateProjection() {
 }
 
 resizeCanvas();
+setEndDate();
 
 }
 )();
